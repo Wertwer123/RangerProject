@@ -719,6 +719,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e274cc09-f64b-44ea-bf1b-cf943ba307db
     m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 986158214}
+        m_TargetAssemblyTypeName: RangerProject.Scripts.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnCrouch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c4d1d9f7-082a-417d-9075-6a5d9492b4e9
+    m_ActionName: Player/Crouch[/Keyboard/ctrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -749,13 +766,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aea14eb184fd904ca5d69aed182481f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 10
+  MovementSpeed: 4
+  MovementSpeedCrouching: 2
   Gravity: -9.81
   GravityMultiplier: 1
   JumpForce: 10
+  PlayerCrouchHeightMultiplier: 0.7
+  GroundTag: Ground
+  PlayerCapsule: {fileID: 986158207}
   PlayerInput: {fileID: 986158212}
   PlayerRB: {fileID: 986158215}
-  GroundTag: Ground
 --- !u!54 &986158215
 Rigidbody:
   m_ObjectHideFlags: 0
