@@ -502,8 +502,8 @@ GameObject:
   - component: {fileID: 986158214}
   - component: {fileID: 986158213}
   - component: {fileID: 986158212}
-  - component: {fileID: 986158215}
   - component: {fileID: 986158207}
+  - component: {fileID: 986158215}
   - component: {fileID: 986158209}
   - component: {fileID: 986158208}
   - component: {fileID: 986158211}
@@ -524,7 +524,7 @@ Transform:
   m_GameObject: {fileID: 986158205}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.05, z: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -702,6 +702,23 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b682f6c3-84e7-49ca-919f-96918ad0dfd3
     m_ActionName: Player/Walk[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 986158214}
+        m_TargetAssemblyTypeName: RangerProject.Scripts.Player.PlayerController,
+          Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e274cc09-f64b-44ea-bf1b-cf943ba307db
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -733,8 +750,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 10
+  Gravity: -9.81
+  GravityMultiplier: 1
+  JumpForce: 10
   PlayerInput: {fileID: 986158212}
   PlayerRB: {fileID: 986158215}
+  GroundTag: Ground
 --- !u!54 &986158215
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -841,7 +862,7 @@ GameObject:
   - component: {fileID: 1836592073}
   m_Layer: 0
   m_Name: GroundPlane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
