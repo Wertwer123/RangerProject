@@ -8,6 +8,7 @@ namespace RangerProject.Scripts.Player
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private float MovementSpeed = 10.0f;
+        [SerializeField] private float RotationSpeed = 1.0f;
         [SerializeField] private float MovementSpeedCrouching = 10.0f;
         [SerializeField] private float Gravity = -9.81f;
         [SerializeField] private float GravityMultiplier = 1.0f;
@@ -19,15 +20,21 @@ namespace RangerProject.Scripts.Player
         [SerializeField] private Rigidbody PlayerRB;
 
         private float DefaultCapsuleHeight = 0.0f;
-        
         private bool IsGrounded = false;
         private bool IsCrouching = false;
-        private Vector3 Velocity;
+        private Vector3 Velocity = Vector3.zero;
+        private Vector3 CurrentMousePositionWorld = Vector3.zero;
+        private Vector3 CurrentLookDirection = Vector3.zero;
         
         private void Start()
         {
-            PlayerInput.camera = Camera.current;
+            PlayerInput.camera = Camera.main;
             DefaultCapsuleHeight = PlayerCapsule.height;
+        }
+
+        private void Update()
+        {
+            ApplyRotation();
         }
 
         private void FixedUpdate()
@@ -35,7 +42,23 @@ namespace RangerProject.Scripts.Player
             ApplyGravity();
             ApplyMovement();
         }
-        
+
+        public void Aim(InputAction.CallbackContext CallbackContext)
+        {
+            Transform Transform = transform;
+            Vector3 Position = Transform.position;
+            Vector2 MousePositionScreen = CallbackContext.ReadValue<Vector2>();
+            
+            Ray MousePositionRay = PlayerInput.camera.ScreenPointToRay(MousePositionScreen);
+            Physics.Raycast(MousePositionRay, out RaycastHit Hit);
+            CurrentMousePositionWorld = Hit.point;
+
+            Vector3 DirectionToMouse = Position - CurrentMousePositionWorld;
+            Vector3 LookDirection = Position - (Position + DirectionToMouse * 0.1f);
+            
+            LookDirection.y = 0;
+            CurrentLookDirection = LookDirection;
+        }
         public void OnJump(InputAction.CallbackContext CallbackContext)
         {
             if (CallbackContext.started)
@@ -94,6 +117,11 @@ namespace RangerProject.Scripts.Player
             PlayerRB.velocity = new Vector3(XMovement, Velocity.y, ZMovement);
         }
 
+        private void ApplyRotation()
+        {
+            transform.forward = Vector3.Lerp(transform.forward, CurrentLookDirection, Time.deltaTime * RotationSpeed);
+        }
+
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag(GroundTag))
@@ -108,6 +136,13 @@ namespace RangerProject.Scripts.Player
             {
                 IsGrounded = false;
             }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawCube(CurrentMousePositionWorld, Vector3.one * 0.1f);
+            Gizmos.DrawLine(transform.position, CurrentMousePositionWorld);
         }
     }
 }

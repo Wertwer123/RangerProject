@@ -27,7 +27,6 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             {
                 NextShotTime = Time.time + CurrentWeapon.GetWeaponShotDelay();
                 CurrentWeapon.Shoot();
-                Debug.Log(NextShotTime);
             }    
         }
         
