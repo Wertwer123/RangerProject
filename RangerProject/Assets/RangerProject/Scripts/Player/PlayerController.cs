@@ -10,6 +10,7 @@ namespace RangerProject.Scripts.Player
         [SerializeField] private float MovementSpeed = 10.0f;
         [SerializeField] private float RotationSpeed = 1.0f;
         [SerializeField] private float MovementSpeedCrouching = 10.0f;
+        [SerializeField, Range(0, 90)] private float MaxAngleBetweenLowerAndUpperBody = 20.0f;
         [SerializeField] private float Gravity = -9.81f;
         [SerializeField] private float GravityMultiplier = 1.0f;
         [SerializeField] private float JumpForce = 10.0f;
@@ -18,8 +19,11 @@ namespace RangerProject.Scripts.Player
         [SerializeField] private CapsuleCollider PlayerCapsule;
         [SerializeField] private PlayerInput PlayerInput;
         [SerializeField] private Rigidbody PlayerRB;
+        [SerializeField] private Transform UpperBody;
+        [SerializeField] private Transform LowerBody;
 
         private float DefaultCapsuleHeight = 0.0f;
+        private float AngleBetweenLowerAndUpperBoddy = 0.0f;
         private bool IsGrounded = false;
         private bool IsCrouching = false;
         private Vector3 Velocity = Vector3.zero;
@@ -53,7 +57,7 @@ namespace RangerProject.Scripts.Player
             Physics.Raycast(MousePositionRay, out RaycastHit Hit);
             CurrentMousePositionWorld = Hit.point;
 
-            Vector3 DirectionToMouse = Position - CurrentMousePositionWorld;
+            Vector3 DirectionToMouse = CurrentMousePositionWorld - Position;
             Vector3 LookDirection = Position - (Position + DirectionToMouse * 0.1f);
             
             LookDirection.y = 0;
@@ -119,7 +123,16 @@ namespace RangerProject.Scripts.Player
 
         private void ApplyRotation()
         {
-            transform.forward = Vector3.Lerp(transform.forward, CurrentLookDirection, Time.deltaTime * RotationSpeed);
+            Vector3 Forward = UpperBody.forward;
+            AngleBetweenLowerAndUpperBoddy = Vector3.Angle(Forward, LowerBody.forward);
+             
+            Forward = Vector3.Lerp(Forward, CurrentLookDirection, Time.deltaTime * RotationSpeed);
+            UpperBody.forward = Forward;
+
+            if (AngleBetweenLowerAndUpperBoddy > MaxAngleBetweenLowerAndUpperBody)
+            {
+                LowerBody.forward = Vector3.Lerp(LowerBody.forward, Forward, Time.deltaTime * RotationSpeed);
+            }
         }
 
         private void OnCollisionEnter(Collision other)
