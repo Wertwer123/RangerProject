@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: M14
   m_EditorClassIdentifier: 
   Dmg: 10
-  ShotsPerSecond: 3
-  MaxAmmo: 100
+  ShotsPerSecond: 12
+  MaxAmmo: 400
   WeaponRange: 20
-  MuzzleFlashIntensity: 400
+  MuzzleFlashIntensity: 50
   WeaponName: DefaultWeaponName
+  WeaponSpray: {x: 0.06, y: 0.06}
   HitableLayer:
     serializedVersion: 2
     m_Bits: 8

@@ -3,6 +3,7 @@ using System.Collections;
 using RangerProject.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
 namespace RangerProject.Scripts.Player.WeaponSystem
 {
@@ -10,6 +11,8 @@ namespace RangerProject.Scripts.Player.WeaponSystem
     {
         [SerializeField] protected WeaponData WeaponData;
         [SerializeField] protected Light MuzzleFlash;
+        [SerializeField] protected LineRenderer BulletTrace;
+        [SerializeField] private VisualEffect MuzzleFlashVFX;
 
         public event Action<int> OnWeaponFired; 
         
@@ -30,6 +33,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         {
             CurrentAmmo = WeaponData.GetMaxAmmo();
             PlayerController = GetComponentInParent<PlayerController>();
+            BulletTrace.positionCount = 0;
         }
 
         protected void InvokeOnWeaponFired()
@@ -37,9 +41,18 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             OnWeaponFired?.Invoke(CurrentAmmo);
         }
 
-        protected void PlayMuzzleFlash()
+        protected void PlayMuzzleFlash(Vector3 EndPosition)
         {
+            MuzzleFlashVFX.Play();
+            SetBulletTracePositions(EndPosition);
             StartCoroutine(AnimMuzzleFlash());
+        }
+
+        protected void SetBulletTracePositions(Vector3 EndPosition)
+        {
+            BulletTrace.positionCount = 2;
+            BulletTrace.SetPosition(0, BulletTrace.transform.position);
+            BulletTrace.SetPosition(1, EndPosition);
         }
         
         private IEnumerator AnimMuzzleFlash()
@@ -55,6 +68,8 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             }
 
             MuzzleFlash.intensity = 0;
+            BulletTrace.positionCount = 0;
+            MuzzleFlashVFX.Stop();
         }
         public abstract void Shoot(CameraController CameraController);
     }

@@ -14,6 +14,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         [SerializeField] private float WeaponRange = 20;
         [SerializeField, Min(1)] private float MuzzleFlashIntensity = 400;
         [SerializeField] private string WeaponName = "DefaultWeaponName";
+        [SerializeField] Vector2 WeaponSpray = Vector2.zero;
         [SerializeField] private GUID WeaponId = new GUID();
         [SerializeField] private LayerMask HitableLayer;
         [SerializeField] private EWeaponType WeaponType;
@@ -25,6 +26,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         public float GetShotDelay() => 1.0f / ShotsPerSecond;
         public float GetMuzzleFlashIntensity() => MuzzleFlashIntensity;
         public string GetWeaponName() => WeaponName;
+        public Vector2 GetWeaponSpray() => WeaponSpray;
         public GUID GetWeaponId() => WeaponId;
         public LayerMask GetHitableLayer() => HitableLayer;
         public EWeaponType GetWeaponType() => WeaponType;

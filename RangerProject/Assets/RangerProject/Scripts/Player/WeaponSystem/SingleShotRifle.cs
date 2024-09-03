@@ -16,11 +16,12 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             
             CurrentAmmo--;
             InvokeOnWeaponFired();
-            PlayMuzzleFlash();
+            
             
             var WeaponTransform = transform;
+            Vector3 WeaponSpray = new Vector3(Random.Range(-WeaponData.GetWeaponSpray().x, WeaponData.GetWeaponSpray().x), Random.Range(-WeaponData.GetWeaponSpray().y, WeaponData.GetWeaponSpray().y), 0);
             Vector3 StartPoint = WeaponTransform.position;
-            Vector3 Direction = WeaponTransform.forward;
+            Vector3 Direction = WeaponTransform.forward + WeaponSpray;
            
             CameraController.PlayCameraShakeDirectional(WeaponData.GetWeaponShakeSettings(), -Direction);
             
@@ -29,7 +30,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             if (bHitTarget)
             {
                 //Deal dmg etc
-                
+                PlayMuzzleFlash(Hit.point);
                 if (Hit.collider.gameObject.TryGetComponent(out IDamageable Damageable))
                 {
                     Damageable.DealDmg(WeaponData.GetWeaponDmg());
@@ -41,6 +42,10 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                     Temp.y = WeaponTransform.position.y;
                     Debug.DrawRay(Temp, Hit.point, Color.yellow, 5.0f);
                 }
+            }
+            else
+            {
+                PlayMuzzleFlash(StartPoint + Direction * WeaponData.GetWeaponRange());
             }
         }
     }

@@ -10,7 +10,7 @@ namespace RangerProject.Scripts.Player
 
         public void AddWeaponToInventory(WeaponData WeaponData)
         {
-            SaveableWeapon SaveableWeapon = new SaveableWeapon();
+            // SaveableWeapon SaveableWeapon = new SaveableWeapon();
         }
     }
 }
