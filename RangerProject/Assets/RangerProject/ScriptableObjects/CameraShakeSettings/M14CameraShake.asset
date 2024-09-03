@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ddd6f8cd5030f9468fd534b8534f04a, type: 3}
+  m_Name: M14CameraShake
+  m_EditorClassIdentifier: 
+  CameraFollowSpeed: 10
+  TimesToShake: 1
+  Intensity: 1
+  Snappiness: 10
+  ReturnSpeed: 10
+  ShakeDuration: 0.05

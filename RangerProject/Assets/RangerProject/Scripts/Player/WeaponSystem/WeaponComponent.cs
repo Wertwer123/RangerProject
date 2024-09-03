@@ -1,4 +1,5 @@
 using System;
+using RangerProject.Scripts.Gameplay;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,11 +7,13 @@ namespace RangerProject.Scripts.Player.WeaponSystem
 {
     public class WeaponComponent : MonoBehaviour
     {
+        [SerializeField] private Transform WeaponAttachmentParent;
         [SerializeField] private Weapon CurrentWeapon;
-        [SerializeField] private MeshFilter WeaponMeshFilter;
-
+        [SerializeField] private WeaponDataBase WeaponDataBase;
+        [SerializeField] protected CameraController CameraController;
+        
         [Header("Test")] 
-        [SerializeField] private WeaponData TestWeaponData;
+        [SerializeField] private WeaponData TestWeapon;
 
         private float NextShotTime = 0.0f;
         private bool IsFiring;
@@ -18,7 +21,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         //Delete later
         private void Start()
         {
-            ChangeWeapon(TestWeaponData);
+            ChangeWeapon(WeaponDataBase.GetWeaponById(TestWeapon.GetWeaponId()));
         }
 
         private void Update()
@@ -26,36 +29,20 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             if (IsFiring && NextShotTime <= Time.time)
             {
                 NextShotTime = Time.time + CurrentWeapon.GetWeaponShotDelay();
-                CurrentWeapon.Shoot();
+                CurrentWeapon.Shoot(CameraController);
             }    
         }
         
-        void ChangeWeapon(WeaponData NewWeaponData)
+        void ChangeWeapon(Weapon NewWeapon)
         {
-            Destroy(CurrentWeapon);
-
-            switch (NewWeaponData.GetWeaponType())
+            if (CurrentWeapon)
             {
-                case EWeaponType.SingleShot:
-                {
-                    CurrentWeapon = gameObject.AddComponent<SingleShotRifle>();
-                    CurrentWeapon.InitWeapon(NewWeaponData, WeaponMeshFilter);
-                    break;
-                }
-                case EWeaponType.ShotGun:
-                {
-                    break;
-                }
-                case EWeaponType.AutomaticRifle:
-                {
-                    break;
-                }
-                default:
-                {
-                    throw new ArgumentOutOfRangeException();
-                }
-                
+                Destroy(CurrentWeapon);
             }
+            
+            var NewWeaponInstance = Instantiate(NewWeapon, WeaponAttachmentParent);
+            NewWeaponInstance.transform.position = WeaponAttachmentParent.position;
+            CurrentWeapon = NewWeaponInstance;
         }
         
         public void OnFire(InputAction.CallbackContext CallbackContext)

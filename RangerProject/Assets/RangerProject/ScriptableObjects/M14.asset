@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dmg: 10
   ShotsPerSecond: 3
+  MaxAmmo: 100
+  WeaponRange: 20
+  MuzzleFlashIntensity: 400
   WeaponName: DefaultWeaponName
+  HitableLayer:
+    serializedVersion: 2
+    m_Bits: 8
   WeaponType: 0
-  WeaponMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  WeaponSettings: {fileID: 11400000, guid: 487e0e8ebd6dbae4b85e144a778064c1, type: 2}

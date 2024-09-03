@@ -21,14 +21,16 @@ namespace RangerProject.Scripts.Player
         [SerializeField] private Rigidbody PlayerRB;
         [SerializeField] private Transform UpperBody;
         [SerializeField] private Transform LowerBody;
-
+        
         private float DefaultCapsuleHeight = 0.0f;
         private float AngleBetweenLowerAndUpperBoddy = 0.0f;
         private bool IsGrounded = false;
         private bool IsCrouching = false;
         private Vector3 Velocity = Vector3.zero;
         private Vector3 CurrentMousePositionWorld = Vector3.zero;
-        private Vector3 CurrentLookDirection = Vector3.zero;
+        private Vector3 CurrentLookDirection = new Vector3(0,0, 1);
+
+        public Vector3 GetCurrentMousePositionWorld() => CurrentMousePositionWorld;
         
         private void Start()
         {
@@ -49,19 +51,11 @@ namespace RangerProject.Scripts.Player
 
         public void Aim(InputAction.CallbackContext CallbackContext)
         {
-            Transform Transform = transform;
-            Vector3 Position = Transform.position;
             Vector2 MousePositionScreen = CallbackContext.ReadValue<Vector2>();
             
             Ray MousePositionRay = PlayerInput.camera.ScreenPointToRay(MousePositionScreen);
-            Physics.Raycast(MousePositionRay, out RaycastHit Hit);
+            Physics.Raycast(MousePositionRay, out RaycastHit Hit, Mathf.Infinity);
             CurrentMousePositionWorld = Hit.point;
-
-            Vector3 DirectionToMouse = CurrentMousePositionWorld - Position;
-            Vector3 LookDirection = Position - (Position + DirectionToMouse * 0.1f);
-            
-            LookDirection.y = 0;
-            CurrentLookDirection = LookDirection;
         }
         public void OnJump(InputAction.CallbackContext CallbackContext)
         {
@@ -123,15 +117,19 @@ namespace RangerProject.Scripts.Player
 
         private void ApplyRotation()
         {
-            Vector3 Forward = UpperBody.forward;
-            AngleBetweenLowerAndUpperBoddy = Vector3.Angle(Forward, LowerBody.forward);
-             
-            Forward = Vector3.Lerp(Forward, CurrentLookDirection, Time.deltaTime * RotationSpeed);
-            UpperBody.forward = Forward;
+            var PlayerTransform = transform;
+            Vector3 CurrentPlayerPosition = PlayerTransform.position;
+            Vector3 DirectionToMouse = CurrentMousePositionWorld - CurrentPlayerPosition;
+            Vector3 LookDirection = DirectionToMouse;
+            LookDirection.y = 0;
+            
+            CurrentLookDirection = LookDirection;
+            AngleBetweenLowerAndUpperBoddy = Vector3.Angle(UpperBody.forward, LowerBody.forward);
+            UpperBody.forward = Vector3.Lerp(UpperBody.forward, CurrentLookDirection, Time.deltaTime * RotationSpeed);
 
             if (AngleBetweenLowerAndUpperBoddy > MaxAngleBetweenLowerAndUpperBody)
             {
-                LowerBody.forward = Vector3.Lerp(LowerBody.forward, Forward, Time.deltaTime * RotationSpeed);
+                LowerBody.forward = Vector3.Lerp(LowerBody.forward, UpperBody.forward, Time.deltaTime * RotationSpeed);
             }
         }
 
@@ -155,6 +153,7 @@ namespace RangerProject.Scripts.Player
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawCube(CurrentMousePositionWorld, Vector3.one * 0.1f);
+            
             Gizmos.DrawLine(transform.position, CurrentMousePositionWorld);
         }
     }
