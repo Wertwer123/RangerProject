@@ -1,4 +1,5 @@
 using RangerProject.Scripts.Gameplay;
+using RangerProject.Scripts.Utils;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,8 +17,8 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         [SerializeField] private string WeaponName = "DefaultWeaponName";
         [SerializeField] private ParamterizedAudiofile ShotSound;
         [SerializeField] Vector2 WeaponSpray = Vector2.zero;
-        [SerializeField] private GUID WeaponId = new GUID();
         [SerializeField] private LayerMask HitableLayer;
+        [SerializeField] private SerializableGUID WeaponId;
         [SerializeField] private EWeaponType WeaponType;
         [SerializeField] private CameraSettings WeaponSettings;
 
@@ -29,7 +30,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         public string GetWeaponName() => WeaponName;
         public ParamterizedAudiofile GetWeaponShotSound() => ShotSound;
         public Vector2 GetWeaponSpray() => WeaponSpray;
-        public GUID GetWeaponId() => WeaponId;
+        public SerializableGUID GetWeaponId() => WeaponId;
         public LayerMask GetHitableLayer() => HitableLayer;
         public EWeaponType GetWeaponType() => WeaponType;
         public CameraSettings GetWeaponShakeSettings() => WeaponSettings;

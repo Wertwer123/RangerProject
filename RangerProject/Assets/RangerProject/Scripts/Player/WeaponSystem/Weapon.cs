@@ -65,7 +65,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         
         private IEnumerator AnimMuzzleFlash()
         {
-            float FlashTime = WeaponData.GetShotDelay() * 0.5f;
+            float FlashTime = 0.02f;
             float T = 0.0f;
             
             while (FlashTime > T)

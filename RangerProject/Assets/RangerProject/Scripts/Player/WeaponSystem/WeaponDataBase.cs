@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using RangerProject.Scripts.Utils;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,11 +10,11 @@ namespace RangerProject.Scripts.Player.WeaponSystem
     {
         [SerializeField] private List<Weapon> AllAvailableWeapons;
 
-        public Weapon GetWeaponById(GUID WeaponIDToFind)
+        public Weapon GetWeaponById(SerializableGUID WeaponIDToFind)
         {
             foreach (var Weapon in AllAvailableWeapons)
             {
-                GUID WeaponId = Weapon.GetWeaponData().GetWeaponId();
+                SerializableGUID WeaponId = Weapon.GetWeaponData().GetWeaponId();
 
                 if (WeaponIDToFind.Equals(WeaponId))
                 {

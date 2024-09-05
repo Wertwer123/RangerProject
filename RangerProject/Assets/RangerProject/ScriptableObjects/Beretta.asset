@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5878a8c6ff841b74a97bde05c84ff5a9, type: 3}
+  m_Name: Beretta
+  m_EditorClassIdentifier: 
+  Dmg: 10
+  ShotsPerSecond: 2
+  MaxAmmo: 400
+  WeaponRange: 20
+  MuzzleFlashIntensity: 50
+  WeaponName: Beretta
+  ShotSound: {fileID: 11400000, guid: 6b73bd74a203d3946b8232134556ad85, type: 2}
+  WeaponSpray: {x: 0.06, y: 0.06}
+  HitableLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  WeaponId:
+    GuidPart1: -244288843
+    GuidPart2: 1221254100
+    GuidPart3: 1782862777
+    GuidPart4: 1788924928
+  WeaponType: 0
+  WeaponSettings: {fileID: 11400000, guid: f84ccf42caaa84b46b7b70e81c168692, type: 2}

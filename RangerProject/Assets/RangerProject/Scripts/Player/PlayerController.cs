@@ -19,9 +19,7 @@ namespace RangerProject.Scripts.Player
         [SerializeField] private CapsuleCollider PlayerCapsule;
         [SerializeField] private PlayerInput PlayerInput;
         [SerializeField] private Rigidbody PlayerRB;
-        [SerializeField] private Transform UpperBody;
-        [SerializeField] private Transform LowerBody;
-        
+       
         private float DefaultCapsuleHeight = 0.0f;
         private float AngleBetweenLowerAndUpperBoddy = 0.0f;
         private bool IsGrounded = false;
@@ -40,7 +38,7 @@ namespace RangerProject.Scripts.Player
 
         private void Update()
         {
-            ApplyRotation();
+            // ApplyRotation();
         }
 
         private void FixedUpdate()
@@ -124,13 +122,7 @@ namespace RangerProject.Scripts.Player
             LookDirection.y = 0;
             
             CurrentLookDirection = LookDirection;
-            AngleBetweenLowerAndUpperBoddy = Vector3.Angle(UpperBody.forward, LowerBody.forward);
-            UpperBody.forward = Vector3.Lerp(UpperBody.forward, CurrentLookDirection, Time.deltaTime * RotationSpeed);
-
-            if (AngleBetweenLowerAndUpperBoddy > MaxAngleBetweenLowerAndUpperBody)
-            {
-                LowerBody.forward = Vector3.Lerp(LowerBody.forward, UpperBody.forward, Time.deltaTime * RotationSpeed);
-            }
+            PlayerTransform.forward = Vector3.Lerp(PlayerTransform.forward, CurrentLookDirection, Time.deltaTime * RotationSpeed);
         }
 
         private void OnCollisionEnter(Collision other)

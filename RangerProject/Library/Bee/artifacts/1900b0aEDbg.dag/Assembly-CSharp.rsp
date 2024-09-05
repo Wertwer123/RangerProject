@@ -328,6 +328,8 @@
 -r:"C:/Program Files/Unity/Hub/Editor/2022.3.35f1/Editor/Data/NetStandard/ref/2.1.0/netstandard.dll"
 -r:"Library/PackageCache/com.unity.visualscripting@1.9.4/Runtime/VisualScripting.Flow/Dependencies/NCalc/Unity.VisualScripting.Antlr3.Runtime.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/PPv2URPConverters.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Animation.Rigging.Editor.ref.dll"
+-r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Animation.Rigging.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Burst.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.Burst.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.InputSystem.ForUI.ref.dll"
@@ -379,9 +381,9 @@
 "Assets/RangerProject/Scripts/Player/Inventory.cs"
 "Assets/RangerProject/Scripts/Player/PlayerController.cs"
 "Assets/RangerProject/Scripts/Player/RoomConstrainer.cs"
+"Assets/RangerProject/Scripts/Player/WeaponSystem/AutomaticGun.cs"
 "Assets/RangerProject/Scripts/Player/WeaponSystem/EWeaponType.cs"
 "Assets/RangerProject/Scripts/Player/WeaponSystem/SaveableWeapon.cs"
-"Assets/RangerProject/Scripts/Player/WeaponSystem/SingleShotRifle.cs"
 "Assets/RangerProject/Scripts/Player/WeaponSystem/Weapon.cs"
 "Assets/RangerProject/Scripts/Player/WeaponSystem/WeaponComponent.cs"
 "Assets/RangerProject/Scripts/Player/WeaponSystem/WeaponData.cs"
@@ -389,6 +391,7 @@
 "Assets/RangerProject/Scripts/Utils/BaseSingleton.cs"
 "Assets/RangerProject/Scripts/Utils/ObjectPool.cs"
 "Assets/RangerProject/Scripts/Utils/ParamterizedAudiofile.cs"
+"Assets/RangerProject/Scripts/Utils/SerializableGUID.cs"
 -langversion:9.0
 /deterministic
 /optimize-
