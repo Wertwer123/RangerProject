@@ -10,12 +10,13 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         {
             if (CurrentAmmo == 0)
             {
-                Debug.Log("Out Of Ammo");
+                Debug.Log("Out Of Ammunition");
                 return;
             }
             
             CurrentAmmo--;
             InvokeOnWeaponFired();
+            PlayWeaponShotSound();
             
             
             var WeaponTransform = transform;

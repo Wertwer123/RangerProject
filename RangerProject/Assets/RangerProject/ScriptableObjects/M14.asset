@@ -18,6 +18,7 @@ MonoBehaviour:
   WeaponRange: 20
   MuzzleFlashIntensity: 50
   WeaponName: DefaultWeaponName
+  ShotSound: {fileID: 11400000, guid: 62d7bd382dca0f94ba45f8167ff5fbf6, type: 2}
   WeaponSpray: {x: 0.06, y: 0.06}
   HitableLayer:
     serializedVersion: 2

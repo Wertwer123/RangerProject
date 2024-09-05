@@ -1,9 +1,12 @@
 using System;
 using System.Collections;
 using RangerProject.Scripts.Gameplay;
+using RangerProject.Scripts.Manager;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.Serialization;
 using UnityEngine.VFX;
+using Random = UnityEngine.Random;
 
 namespace RangerProject.Scripts.Player.WeaponSystem
 {
@@ -13,7 +16,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         [SerializeField] protected Light MuzzleFlash;
         [SerializeField] protected LineRenderer BulletTrace;
         [SerializeField] private VisualEffect MuzzleFlashVFX;
-
+       
         public event Action<int> OnWeaponFired; 
         
         protected PlayerController PlayerController;
@@ -46,6 +49,11 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             MuzzleFlashVFX.Play();
             SetBulletTracePositions(EndPosition);
             StartCoroutine(AnimMuzzleFlash());
+        }
+
+        protected void PlayWeaponShotSound()
+        {
+            AudioManager.Instance.PlayAudioFileWithRandomParams(WeaponData.GetWeaponShotSound(), transform.position);
         }
 
         protected void SetBulletTracePositions(Vector3 EndPosition)
