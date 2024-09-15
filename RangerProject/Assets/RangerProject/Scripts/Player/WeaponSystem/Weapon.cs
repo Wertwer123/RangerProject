@@ -15,8 +15,10 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         [SerializeField] protected WeaponData WeaponData;
         [SerializeField] protected Light MuzzleFlash;
         [SerializeField] protected LineRenderer BulletTrace;
+        [SerializeField] protected Transform RightHandSocket;
         [SerializeField] private VisualEffect MuzzleFlashVFX;
-       
+
+        public Transform GetRightHandSocket() => RightHandSocket;
         public event Action<int> OnWeaponFired; 
         
         protected PlayerController PlayerController;

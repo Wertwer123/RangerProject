@@ -18,6 +18,8 @@ namespace RangerProject.Scripts.Gameplay
 
         private bool bIsPlayingShake = false;
 
+        public void SetCurrentCameraSettings(CameraSettings NewCameraSettings) => CurrentSettings = NewCameraSettings; 
+        
         private void Start()
         {
             CalculateCameraTransform();

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Beretta
   m_EditorClassIdentifier: 
   Dmg: 10
-  ShotsPerSecond: 2
+  ShotsPerSecond: 3
   MaxAmmo: 400
   WeaponRange: 20
   MuzzleFlashIntensity: 50

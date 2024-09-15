@@ -544,14 +544,23 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.00847435
+        time: 0.0076577556
+        value: 0.12284585
+        inSlope: -0.18641959
+        outSlope: -0.18641959
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.101427935
+      - serializedVersion: 3
+        time: 0.984647
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -939,6 +948,7 @@ MonoBehaviour:
   WeaponData: {fileID: 11400000, guid: d7cb77860882a9d40a9308cf4dcd3f91, type: 2}
   MuzzleFlash: {fileID: 5827673994348247546}
   BulletTrace: {fileID: 2971359082388772421}
+  RightHandSocket: {fileID: 0}
   MuzzleFlashVFX: {fileID: 2881965301997633600}
 --- !u!82 &-6948211728458083052
 AudioSource:
