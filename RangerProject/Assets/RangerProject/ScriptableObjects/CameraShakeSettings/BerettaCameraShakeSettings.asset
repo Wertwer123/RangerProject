@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraFollowSpeed: 10
   TimesToShake: 1
-  Intensity: 2
+  Intensity: 0.7
   Snappiness: 20
   ReturnSpeed: 10
-  ShakeDuration: 0.2
+  ShakeDuration: 0.1

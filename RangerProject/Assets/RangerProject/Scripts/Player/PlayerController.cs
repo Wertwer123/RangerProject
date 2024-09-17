@@ -52,6 +52,7 @@ namespace RangerProject.Scripts.Player
         {
             PlayerInput.camera = Camera.main;
             DefaultCapsuleHeight = PlayerCapsule.height;
+            AimTarget.SetParent(null, true);
         }
 
         private void Update()
@@ -204,13 +205,13 @@ namespace RangerProject.Scripts.Player
             Vector3 MousePositionWorldWithoutY = new Vector3(CurrentMousePositionWorld.x, 0, CurrentMousePositionWorld.z);
             
             //if the distance to the current mouse pos is to low clamp the positionso that we dont aim into ourselves
-            if (Vector3.Distance(PlayerPositionWithoutY, MousePositionWorldWithoutY) < MinAimableRange)
+            if (Vector3.Distance(PlayerPositionWithoutY, MousePositionWorldWithoutY) <= MinAimableRange)
             {
-                Vector3 DirectionToMousePosWithoutY = MousePositionWorldWithoutY - PlayerPositionWithoutY;
-                Vector3 ClampedDirection = Vector3.ClampMagnitude(DirectionToMousePosWithoutY, 1.0f) * MinAimableRange;
+                Vector3 DirectionToMousePosWithoutY = (MousePositionWorldWithoutY - PlayerPositionWithoutY).normalized;
+                Vector3 ClampedDirection = DirectionToMousePosWithoutY  * MinAimableRange;
                 ClampedDirection.y = CurrentMousePositionWorld.y;
                 
-                AimTarget.position = new Vector3(ClampedDirection.x, CurrentMousePositionWorld.x + AimHeightOffset, ClampedDirection.z);
+                AimTarget.position = new Vector3(ClampedDirection.x, CurrentMousePositionWorld.y + AimHeightOffset, ClampedDirection.z);
                 Debug.Log("Clamping");
             }
             else
