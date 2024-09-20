@@ -24,26 +24,53 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         protected PlayerController PlayerController;
         protected int CurrentAmmo = 0;
 
+        
         //To save a weapon later on we need to know which weapons we have by the weapon id and then we need to also save how many shots were left in the gun itself
+        public int GetCurrentWeaponAmmo() => CurrentAmmo;
+        public int SetCurrentAmmo(int NewAmmoAmount) => CurrentAmmo = NewAmmoAmount; 
         public WeaponData GetWeaponData() => WeaponData;
         
         public float GetWeaponShotDelay() => WeaponData.GetShotDelay();
+        
 
-        private void Start()
+        /// <summary>
+        /// Inits a weapon for the player
+        /// </summary>
+        /// <param name="PlayerInventory"></param>
+        public void InitWeapon(Inventory PlayerInventory)
         {
-            InitWeapon();
-        }
-
-        public void InitWeapon()
-        {
-            CurrentAmmo = WeaponData.GetMaxAmmo();
+            if (PlayerInventory.TryRemoveAmmo(WeaponData.WeaponAmmoTypeToUse, WeaponData.GetMaxAmmo(),
+                    out int RemovedAmmoAmount))
+            { 
+                CurrentAmmo = RemovedAmmoAmount;
+            }
+            else
+            {
+                CurrentAmmo = 0;
+            }
+            
             PlayerController = GetComponentInParent<PlayerController>();
             BulletTrace.positionCount = 0;
         }
 
+        /// <summary>
+        /// inits a weapon for a npc
+        /// </summary>
+        public void InitWeapon(int AmountOfAmmo)
+        {
+            //Just clamp it so that if we have more than our max ammo we just fully load the magazine
+            CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0,WeaponData.GetMaxAmmo());
+            PlayerController = GetComponentInParent<PlayerController>();
+            BulletTrace.positionCount = 0;         
+        }
+        
         protected void InvokeOnWeaponFired()
         {
-            OnWeaponFired?.Invoke(CurrentAmmo);
+            if (CurrentAmmo >= WeaponData.GetAmmoUsedPerShot())
+            {
+                CurrentAmmo -= WeaponData.GetAmmoUsedPerShot();
+                OnWeaponFired?.Invoke(CurrentAmmo);
+            }
         }
 
         protected void PlayMuzzleFlash(Vector3 EndPosition)

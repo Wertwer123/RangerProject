@@ -1,0 +1,2 @@
+C:\Users\enzom\Documents\UnityProjects\RangerProject\RangerProject\obj\Debug\Assembly-CSharp.csproj.AssemblyReference.cache
+C:\Users\enzom\Documents\UnityProjects\RangerProject\RangerProject\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

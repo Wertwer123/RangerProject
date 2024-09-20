@@ -61,12 +61,14 @@ namespace RangerProject.Scripts.Player
             ApplyRotation();
             EvaluateState();
             SetBlendValuesLowerBody();
+            
+            ApplyGravity();
+            ApplyMovement();
         }
 
         private void FixedUpdate()
         {
-            ApplyGravity();
-            ApplyMovement();
+           
         }
 
         public void Aim()
@@ -80,6 +82,7 @@ namespace RangerProject.Scripts.Player
             if (CallbackContext.started && IsGrounded)
             {
                 IsGrounded = false;
+                IsJumping = true;
                 Velocity.y += JumpForce;
             }
         }
@@ -123,6 +126,8 @@ namespace RangerProject.Scripts.Player
                 {
                     IsIdle = true;
                     IsWalking = false;
+                    IsFalling = false;
+                    PlayerAnimator.SetBool(JumpingDownId, IsFalling);
                     PlayerAnimator.SetBool(IdleId, IsIdle);                    
                     PlayerAnimator.SetBool(WalkingId, IsWalking);
                     PlayerAnimator.SetFloat(BlendXId, 0.0f);
@@ -211,8 +216,7 @@ namespace RangerProject.Scripts.Player
                 Vector3 ClampedDirection = DirectionToMousePosWithoutY  * MinAimableRange;
                 ClampedDirection.y = CurrentMousePositionWorld.y;
                 
-                AimTarget.position = new Vector3(ClampedDirection.x, CurrentMousePositionWorld.y + AimHeightOffset, ClampedDirection.z);
-                Debug.Log("Clamping");
+                AimTarget.position = transform.position + new Vector3(ClampedDirection.x,  (CurrentMousePositionWorld.y + AimHeightOffset) - transform.position.y, ClampedDirection.z);
             }
             else
             {

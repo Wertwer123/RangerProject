@@ -1,3 +1,4 @@
+using System;
 using RangerProject.Scripts.Gameplay;
 using RangerProject.Scripts.Utils;
 using UnityEditor;
@@ -11,26 +12,43 @@ namespace RangerProject.Scripts.Player.WeaponSystem
     {
         [SerializeField, Min(1)] private int Dmg = 10;
         [SerializeField, Min(0)] private int ShotsPerSecond = 3;
+        [SerializeField, Min(1)] private int AmmoUsedPerShot = 1;
         [SerializeField] private int MaxAmmo = 20;
         [SerializeField] private float WeaponRange = 20;
         [SerializeField, Min(1)] private float MuzzleFlashIntensity = 400;
         [SerializeField] private string WeaponName = "DefaultWeaponName";
+        [SerializeField] public EAmmoType WeaponAmmoTypeToUse = EAmmoType.Rifle7_76mm;
         [SerializeField] private ParamterizedAudiofile ShotSound;
         [SerializeField] Vector2 WeaponSpray = Vector2.zero;
         [SerializeField] private LayerMask HitableLayer;
-        [SerializeField] private SerializableGUID WeaponId;
+        [SerializeField, HideInInspector] private GUID WeaponId;
         [SerializeField] private EWeaponType WeaponType;
         [SerializeField] private CameraSettings WeaponSettings;
-
+        
         public int GetWeaponDmg() => Dmg;
         public int GetMaxAmmo() => MaxAmmo;
         public float GetWeaponRange() => WeaponRange;
         public float GetShotDelay() => 1.0f / ShotsPerSecond;
+        public int GetAmmoUsedPerShot() => AmmoUsedPerShot;
         public float GetMuzzleFlashIntensity() => MuzzleFlashIntensity;
         public string GetWeaponName() => WeaponName;
+        public EAmmoType GetWeaponAmmoType() => WeaponAmmoTypeToUse;
         public ParamterizedAudiofile GetWeaponShotSound() => ShotSound;
         public Vector2 GetWeaponSpray() => WeaponSpray;
-        public SerializableGUID GetWeaponId() => WeaponId;
+        public GUID GetWeaponId() => WeaponId;
+
+        public void SetWeaponId()
+        {
+            if (WeaponId.Empty())
+            {
+                Debug.Log("Assigned a id");
+                WeaponId = GUID.Generate();
+            }
+            else
+            {
+                Debug.Log(WeaponId);
+            }
+        }
         public LayerMask GetHitableLayer() => HitableLayer;
         public EWeaponType GetWeaponType() => WeaponType;
         public CameraSettings GetWeaponShakeSettings() => WeaponSettings;

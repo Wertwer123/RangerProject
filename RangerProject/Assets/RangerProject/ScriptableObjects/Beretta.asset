@@ -14,19 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dmg: 10
   ShotsPerSecond: 3
-  MaxAmmo: 400
+  AmmoUsedPerShot: 1
+  MaxAmmo: 7
   WeaponRange: 20
   MuzzleFlashIntensity: 50
   WeaponName: Beretta
+  WeaponAmmoTypeToUse: 1
   ShotSound: {fileID: 11400000, guid: 6b73bd74a203d3946b8232134556ad85, type: 2}
-  WeaponSpray: {x: 0.06, y: 0.06}
+  WeaponSpray: {x: 0.07, y: 0.09}
   HitableLayer:
     serializedVersion: 2
     m_Bits: 8
-  WeaponId:
-    GuidPart1: -244288843
-    GuidPart2: 1221254100
-    GuidPart3: 1782862777
-    GuidPart4: 1788924928
   WeaponType: 0
   WeaponSettings: {fileID: 11400000, guid: f84ccf42caaa84b46b7b70e81c168692, type: 2}

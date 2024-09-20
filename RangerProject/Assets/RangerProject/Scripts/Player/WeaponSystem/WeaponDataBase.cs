@@ -10,13 +10,20 @@ namespace RangerProject.Scripts.Player.WeaponSystem
     {
         [SerializeField] private List<Weapon> AllAvailableWeapons;
 
-        public Weapon GetWeaponById(SerializableGUID WeaponIDToFind)
+        public void ReassignWeaponIDs()
+        {
+            foreach (Weapon Weapon in AllAvailableWeapons)
+            {
+                Weapon.GetWeaponData().SetWeaponId();
+            }
+        }
+        public Weapon GetWeaponById(GUID WeaponIDToFind)
         {
             foreach (var Weapon in AllAvailableWeapons)
             {
-                SerializableGUID WeaponId = Weapon.GetWeaponData().GetWeaponId();
+                GUID WeaponId = Weapon.GetWeaponData().GetWeaponId();
 
-                if (WeaponIDToFind.Equals(WeaponId))
+                if (WeaponIDToFind == WeaponId)
                 {
                     return Weapon;
                 }

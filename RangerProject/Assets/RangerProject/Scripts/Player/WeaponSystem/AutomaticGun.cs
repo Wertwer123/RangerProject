@@ -12,13 +12,13 @@ namespace RangerProject.Scripts.Player.WeaponSystem
     {
         public override void Shoot(CameraController CameraController)
         {
-            if (CurrentAmmo == 0)
+            if (CurrentAmmo == 0 || CurrentAmmo < WeaponData.GetAmmoUsedPerShot())
             {
+                //Also play a click sound to make the player recognize that he should reload the weapon
                 Debug.Log("Out Of Ammunition");
                 return;
             }
             
-            CurrentAmmo--;
             InvokeOnWeaponFired();
             PlayWeaponShotSound();
             
