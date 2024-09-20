@@ -388,6 +388,8 @@
 "Assets/RangerProject/Scripts/AI/Enemy/States/EnemyChase.cs"
 "Assets/RangerProject/Scripts/AI/Enemy/States/EnemyPetrol.cs"
 "Assets/RangerProject/Scripts/AI/Enemy/States/EnemyWait.cs"
+"Assets/RangerProject/Scripts/AI/NPC/DialogueManager.cs"
+"Assets/RangerProject/Scripts/AI/NPC/NPC.cs"
 "Assets/RangerProject/Scripts/Enviroment/Room.cs"
 "Assets/RangerProject/Scripts/Gameplay/CameraController.cs"
 "Assets/RangerProject/Scripts/Gameplay/CameraShake.cs"
