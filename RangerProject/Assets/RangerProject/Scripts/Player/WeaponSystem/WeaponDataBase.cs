@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
-using RangerProject.Scripts.Utils;
-using UnityEditor;
+using System.Security.Cryptography;
+using System.Text;
 using UnityEngine;
 
 namespace RangerProject.Scripts.Player.WeaponSystem
@@ -14,14 +15,19 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         {
             foreach (Weapon Weapon in AllAvailableWeapons)
             {
-                Weapon.GetWeaponData().SetWeaponId();
+                byte[] HashBuffer = Encoding.UTF8.GetBytes(Weapon.GetWeaponData().GetWeaponName());
+                SHA256 WeaponId = SHA256.Create();
+               
+                byte[] HashBytes = WeaponId.ComputeHash(HashBuffer);
+                
+                Weapon.GetWeaponData().SetWeaponId(BitConverter.ToInt32(HashBytes));
             }
         }
-        public Weapon GetWeaponById(GUID WeaponIDToFind)
+        public Weapon GetWeaponById(int WeaponIDToFind)
         {
             foreach (var Weapon in AllAvailableWeapons)
             {
-                GUID WeaponId = Weapon.GetWeaponData().GetWeaponId();
+                int WeaponId = Weapon.GetWeaponData().GetWeaponId();
 
                 if (WeaponIDToFind == WeaponId)
                 {

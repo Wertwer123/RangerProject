@@ -18,6 +18,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
 
                     if (!WeaponComponent.HasWeaponEquiped())
                     {
+                        PlayerInventory.SetEquippedWeaponIndex(WeaponData.GetWeaponId());
                         WeaponComponent.SetCurrentWeapon(WeaponData);
                     }
                 }

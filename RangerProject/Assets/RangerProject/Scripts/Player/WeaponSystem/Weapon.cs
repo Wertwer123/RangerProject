@@ -59,7 +59,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         public void InitWeapon(int AmountOfAmmo)
         {
             //Just clamp it so that if we have more than our max ammo we just fully load the magazine
-            CurrentAmmo = Mathf.Clamp(CurrentAmmo, 0,WeaponData.GetMaxAmmo());
+            CurrentAmmo = Mathf.Clamp(AmountOfAmmo, 0, WeaponData.GetMaxAmmo());
             PlayerController = GetComponentInParent<PlayerController>();
             BulletTrace.positionCount = 0;         
         }

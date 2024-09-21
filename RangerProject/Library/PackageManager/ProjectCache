@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638611597817454406
-    m_Hash: 1769193361
+      ticks: 638624471808304572
+    m_Hash: 1575609479
   m_LockFileStatus:
     m_FilePath: C:/Users/enzom/Documents/UnityProjects/RangerProject/RangerProject/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638611597817500963
-    m_Hash: 656629343
+      ticks: 638624471808304572
+    m_Hash: 3435836651
 m_EmbeddedPackageManifests:
   m_ManifestsStatus:
     C:/Users/enzom/Documents/UnityProjects/RangerProject/RangerProject/Packages/com.unity.render-pipelines.high-definition-config/package.json:
@@ -4052,10 +4052,12 @@ m_ResolvedPackages:
     - 1.8.15
     - 1.8.16
     - 1.8.17
+    - 1.8.18
     compatible:
     - 1.8.16
     - 1.8.17
-    recommended: 1.8.17
+    - 1.8.18
+    recommended: 1.8.18
     deprecated: []
   dependencies:
   - name: com.unity.mathematics

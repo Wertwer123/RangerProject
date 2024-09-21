@@ -21,7 +21,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         [SerializeField] private ParamterizedAudiofile ShotSound;
         [SerializeField] Vector2 WeaponSpray = Vector2.zero;
         [SerializeField] private LayerMask HitableLayer;
-        [SerializeField, HideInInspector] private GUID WeaponId;
+        [SerializeField, HideInInspector] private int WeaponId = -1;
         [SerializeField] private EWeaponType WeaponType;
         [SerializeField] private CameraSettings WeaponSettings;
         
@@ -35,14 +35,14 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         public EAmmoType GetWeaponAmmoType() => WeaponAmmoTypeToUse;
         public ParamterizedAudiofile GetWeaponShotSound() => ShotSound;
         public Vector2 GetWeaponSpray() => WeaponSpray;
-        public GUID GetWeaponId() => WeaponId;
+        public int GetWeaponId() => WeaponId;
 
-        public void SetWeaponId()
+        public void SetWeaponId(int Id)
         {
-            if (WeaponId.Empty())
+            if (WeaponId == -1)
             {
                 Debug.Log("Assigned a id");
-                WeaponId = GUID.Generate();
+                WeaponId = Id;
             }
             else
             {

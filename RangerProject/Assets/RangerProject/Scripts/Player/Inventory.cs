@@ -15,7 +15,43 @@ namespace RangerProject.Scripts.Player
         
         private Dictionary<EAmmoType, int> AmmoAmountPerAmmoType = new();
 
-       
+        private int CurrentlyEquippedWeaponIndex = -1;
+
+        public void SetEquippedWeaponIndex(int WeaponId)
+        {
+            for (int i = 0; i < AllCollectedWeapons.Count; i++)
+            {
+                SaveableWeapon CollectedWeapon = AllCollectedWeapons[i];
+
+                if (CollectedWeapon.GetWeaponID() == WeaponId)
+                {
+                    CurrentlyEquippedWeaponIndex = i;
+                    return;
+                }
+            }
+        }
+
+        public void ChangeWeaponUpOrDown(int Increment)
+        {
+            //If for some reason we pass in something bigger or smaller then 1
+            Increment = Mathf.Clamp(Increment, -1, 1);
+
+            CurrentlyEquippedWeaponIndex += Increment;
+
+            if (CurrentlyEquippedWeaponIndex < 0)
+            {
+                CurrentlyEquippedWeaponIndex = AllCollectedWeapons.Count - 1;
+            }
+            else if (CurrentlyEquippedWeaponIndex > AllCollectedWeapons.Count - 1)
+            {
+                CurrentlyEquippedWeaponIndex = 0;
+            }
+        }
+
+        public int GetCurrentlyEquippedWeaponID()
+        {
+            return AllCollectedWeapons[CurrentlyEquippedWeaponIndex].GetWeaponID();
+        }
         public void AddAmmo(EAmmoType TypeOfAmmoToAdd, int AmountOfAmmoToAdd)
         {
             if (AmmoAmountPerAmmoType.ContainsKey(TypeOfAmmoToAdd))
@@ -41,17 +77,13 @@ namespace RangerProject.Scripts.Player
             AllCollectedWeapons.Add(NewWeapon);
         }
         
-        public void SetAmmoForWeapon(GUID WeaponId, int NewAmmoAmount)
+        public void SetAmmoForWeapon(int WeaponId, int NewAmmoAmount)
         {
             foreach (SaveableWeapon CollectedWeapon in AllCollectedWeapons)
             {
-                Debug.Log(CollectedWeapon.GetWeaponID());
-                Debug.Log(WeaponId);
-                Debug.Log(NewAmmoAmount);
                 if (CollectedWeapon.GetWeaponID() == WeaponId)
                 {
                     CollectedWeapon.SetAmmo(NewAmmoAmount);
-                    Debug.Log("Sucessfully set " + NewAmmoAmount + " from current weapon");
                     return;
                 }
             }
@@ -96,12 +128,13 @@ namespace RangerProject.Scripts.Player
             return false;
         }
         
-        public int GetAmmoForWeapon(GUID WeaponID)
+        public int GetAmmoForWeapon(int WeaponID)
         {
             foreach (SaveableWeapon CollectedWeapon in AllCollectedWeapons)
             {
                 if (CollectedWeapon.GetWeaponID() == WeaponID)
                 {
+                    Debug.Log(CollectedWeapon.GetCurrentAmmo());
                     return CollectedWeapon.GetCurrentAmmo();
                 }
             }

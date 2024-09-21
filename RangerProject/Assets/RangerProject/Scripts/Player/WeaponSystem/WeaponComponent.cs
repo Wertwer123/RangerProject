@@ -43,6 +43,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                     IsFiring = false;
                     PlayerAnimator.SetBool(IsFiringId, IsFiring);
                 }
+                
                 NextShotTime = Time.time + CurrentWeapon.GetWeaponShotDelay();
                 CurrentWeapon.Shoot(CameraController);
             } 
@@ -52,6 +53,18 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         public void SetCurrentWeapon(WeaponData NewWeapon)
         {
             ChangeWeapon(WeaponDataBase.GetWeaponById(NewWeapon.GetWeaponId()));
+        }
+
+        public void OnMouseWheelUp(InputAction.CallbackContext CallbackContext)
+        {
+            PlayerInventory.ChangeWeaponUpOrDown(1);
+            ChangeWeapon(WeaponDataBase.GetWeaponById(PlayerInventory.GetCurrentlyEquippedWeaponID()));
+        }
+
+        public void OnMouseWheelDown(InputAction.CallbackContext CallbackContext)
+        {
+            PlayerInventory.ChangeWeaponUpOrDown(-1);
+            ChangeWeapon(WeaponDataBase.GetWeaponById(PlayerInventory.GetCurrentlyEquippedWeaponID()));
         }
 
         public void ReloadCurrentWeapon(InputAction.CallbackContext CallbackContext)
@@ -71,8 +84,6 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                     //to our current ammo
                     CurrentWeapon.SetCurrentAmmo(CurrentWeapon.GetCurrentWeaponAmmo() + RemovedAmmoAmount);
                     SetAmmoForInventoryWeapon(CurrentWeapon.GetCurrentWeaponAmmo());
-                    Debug.Log("Removed " + RemovedAmmoAmount);
-                    Debug.Log("Reloaded the current weapon");
                 }
             }
         }
@@ -103,15 +114,21 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         }
         private void SetAmmoForInventoryWeapon(int NewAmmoAmount)
         {
-            Debug.Log("New Ammo amount for current weapon is " + NewAmmoAmount);
             PlayerInventory.SetAmmoForWeapon(CurrentWeapon.GetWeaponData().GetWeaponId(), NewAmmoAmount);
         }
         private void ChangeWeapon(Weapon NewWeapon)
         {
             if (CurrentWeapon)
             {
+                //If we change to the same weapon do nothing
+                if (CurrentWeapon.GetWeaponData().GetWeaponId() == NewWeapon.GetWeaponData().GetWeaponId())
+                {
+                    Debug.Log("SameWeapon");
+                    return;
+                }
+                
                 CurrentWeapon.OnWeaponFired -= SetAmmoForInventoryWeapon;
-                Destroy(CurrentWeapon);
+                Destroy(CurrentWeapon.gameObject);
             }
             
             var NewWeaponInstance = Instantiate(NewWeapon, WeaponAttachmentParent);
@@ -119,7 +136,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             CurrentWeapon = NewWeaponInstance;
             
             //Initialize the weapon
-            int AmmoOfCurrentWeapon = PlayerInventory.GetAmmoForWeapon(NewWeapon.GetWeaponData().GetWeaponId());
+            int AmmoOfCurrentWeapon = PlayerInventory.GetAmmoForWeapon(CurrentWeapon.GetWeaponData().GetWeaponId());
             CurrentWeapon.OnWeaponFired += SetAmmoForInventoryWeapon;
             
             CurrentWeapon.InitWeapon(AmmoOfCurrentWeapon);
@@ -132,6 +149,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         private void AttachRightHandToWeaponSocket(Weapon NewWeapon)
         {
             PlayerAnimator.enabled = false;
+            
             RightHandAimConstraint.data.target = NewWeapon.GetRightHandSocket();
             RigBuilder.Build();
 

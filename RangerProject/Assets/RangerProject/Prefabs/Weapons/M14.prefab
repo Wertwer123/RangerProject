@@ -146,7 +146,6 @@ GameObject:
   - component: {fileID: 1015143748095443984}
   - component: {fileID: 2462568719357563977}
   - component: {fileID: 4790036695891061796}
-  - component: {fileID: 4876620732045607191}
   m_Layer: 0
   m_Name: FlashLightAttachment
   m_TagString: Untagged
@@ -220,27 +219,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4876620732045607191
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3848961670168271007}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.99999994, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4181233266006102117
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,8 +522,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.0076577556
-        value: 0.12284585
+        time: 0.0031449688
+        value: 0.026684962
         inSlope: -0.18641959
         outSlope: -0.18641959
         tangentMode: 0
@@ -846,6 +824,37 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!1 &8291702643702932827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 417704812065988064}
+  m_Layer: 0
+  m_Name: RightArmSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &417704812065988064
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8291702643702932827}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.85, z: 0.251}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7085186857353804014}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &9119269815417071052
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,6 +890,7 @@ Transform:
   m_Children:
   - {fileID: 1015143748095443984}
   - {fileID: 6907960773535602884}
+  - {fileID: 417704812065988064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7560348636050102227
@@ -948,7 +958,7 @@ MonoBehaviour:
   WeaponData: {fileID: 11400000, guid: d7cb77860882a9d40a9308cf4dcd3f91, type: 2}
   MuzzleFlash: {fileID: 5827673994348247546}
   BulletTrace: {fileID: 2971359082388772421}
-  RightHandSocket: {fileID: 0}
+  RightHandSocket: {fileID: 417704812065988064}
   MuzzleFlashVFX: {fileID: 2881965301997633600}
 --- !u!82 &-6948211728458083052
 AudioSource:

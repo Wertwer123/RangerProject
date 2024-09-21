@@ -208,7 +208,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: 0, y: -45, z: 0}
+    m_Offset: {x: 0, y: 0, z: 0}
     m_MinLimit: -180
     m_MaxLimit: 180
     m_AimAxis: 2
@@ -245,13 +245,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7024236966557924638}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalRotation: {x: -0.27059805, y: -0.6532815, z: -0.6532815, w: 0.27059805}
   m_LocalPosition: {x: 0, y: 0.0499, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3023376802803403592}
-  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: -135, z: 0}
 --- !u!1 &7175391140997436182
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,13 +333,13 @@ MonoBehaviour:
     m_Root: {fileID: 2345512525842579854}
     m_Mid: {fileID: 5789952441873214243}
     m_Tip: {fileID: 7673281862504653123}
-    m_Target: {fileID: 3056638291993126557}
+    m_Target: {fileID: 0}
     m_Hint: {fileID: 4334572191047167508}
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 1
-    m_MaintainTargetRotationOffset: 1
+    m_MaintainTargetRotationOffset: 0
 --- !u!1 &8869446628027670438
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +381,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1284038492798199606}
   - component: {fileID: 4564111826352979803}
+  - component: {fileID: 3250508094992991256}
   - component: {fileID: 4265856060993382950}
   - component: {fileID: 6711712970331423139}
   - component: {fileID: 5153798841448975985}
@@ -424,12 +425,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSpeed: 4
-  RotationSpeed: 12
+  RotationSpeed: 25
   MovementSpeedCrouching: 5
+  Acceleration: 3.5
+  MinVelocity: 0.1
   Gravity: -9.81
   GravityMultiplier: 1
   JumpForce: 2.5
   MaxAngleBetweenLowerAndUpperBody: 20
+  MinAimableRange: 0.5
   PlayerCrouchHeightMultiplier: 0.7
   AimHeightOffset: 1
   GroundTag: Ground
@@ -441,6 +445,19 @@ MonoBehaviour:
   PlayerInput: {fileID: 6711712970331423139}
   PlayerRB: {fileID: 9180159327172103570}
   PlayerAnimator: {fileID: 2052447939846212424}
+--- !u!114 &3250508094992991256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9002799368228735836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6665ec0df6fbb5e46b13220861b4e0e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllCollectedWeapons: []
 --- !u!114 &4265856060993382950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,13 +471,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WeaponAttachmentOffset: 0.05
+  PlayerInventory: {fileID: 3250508094992991256}
   WeaponAttachmentParent: {fileID: 3056638291993126557}
   CurrentWeapon: {fileID: 0}
   WeaponDataBase: {fileID: 11400000, guid: 163edddfdbda31648a7249cd68f307e5, type: 2}
   CameraController: {fileID: 0}
   RightHandAimConstraint: {fileID: 3768215530992906046}
   RigBuilder: {fileID: 3832640320037344179}
-  TestWeapon: {fileID: 11400000, guid: 9b275743d9d789b45b9b044ca9bf637d, type: 2}
 --- !u!114 &6711712970331423139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,11 +573,15 @@ MonoBehaviour:
     m_ActionId: 235d722a-64e8-4724-8f9e-7c24d141b20a
     m_ActionName: Player/Shoot[/Mouse/leftButton]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d24da70c-2f65-4c13-9cda-1bccc3f4fdb0
+    m_ActionName: Player/Aim[/Mouse/position]
+  - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4564111826352979803}
-        m_TargetAssemblyTypeName: RangerProject.Scripts.Player.PlayerController,
+      - m_Target: {fileID: 4265856060993382950}
+        m_TargetAssemblyTypeName: RangerProject.Scripts.Player.WeaponSystem.WeaponComponent,
           Assembly-CSharp
-        m_MethodName: Aim
+        m_MethodName: ReloadCurrentWeapon
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -570,8 +591,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: d24da70c-2f65-4c13-9cda-1bccc3f4fdb0
-    m_ActionName: Player/Aim[/Mouse/position]
+    m_ActionId: 47502be0-5d90-4f14-9123-4216777ea00c
+    m_ActionName: Player/Reload[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -744,7 +765,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b6b594902ccc03d4bbf54cdddf709699,
         type: 3}
       propertyPath: m_Name
-      value: PistolIdle (1)
+      value: CharacterModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

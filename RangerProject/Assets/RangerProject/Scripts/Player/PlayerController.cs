@@ -11,7 +11,8 @@ namespace RangerProject.Scripts.Player
         [SerializeField] private float MovementSpeed = 10.0f;
         [SerializeField] private float RotationSpeed = 1.0f;
         [SerializeField] private float MovementSpeedCrouching = 10.0f;
-      
+        [SerializeField] private float Acceleration = 2.0f;
+        [SerializeField, Range(0.01f, 0.5f)] private float MinVelocity = 0.1f;
         [SerializeField] private float Gravity = -9.81f;
         [SerializeField] private float GravityMultiplier = 1.0f;
         [SerializeField] private float JumpForce = 10.0f;
@@ -36,6 +37,7 @@ namespace RangerProject.Scripts.Player
         private bool IsJumping = false;
         private bool IsFalling = false;
         private Vector3 Velocity = Vector3.zero;
+        private Vector3 TargetVelocity = Vector3.zero;
         private Vector3 VelocityWithoutY = Vector3.zero;
         private Vector3 CurrentMousePositionWorld = Vector3.zero;
         private Vector3 CurrentLookDirection = new Vector3(0,0, 1);
@@ -83,7 +85,8 @@ namespace RangerProject.Scripts.Player
             {
                 IsGrounded = false;
                 IsJumping = true;
-                Velocity.y += JumpForce;
+                TargetVelocity.y += JumpForce;
+                Velocity.y = TargetVelocity.y;
             }
         }
         public void OnWalk(InputAction.CallbackContext CallbackContext)
@@ -93,8 +96,8 @@ namespace RangerProject.Scripts.Player
             float XMovement = WalkInput.x;
             float ZMovement = WalkInput.y;
             
-            Velocity = new Vector3(XMovement, Velocity.y, ZMovement);
-            VelocityWithoutY = new Vector3(Velocity.x, 0, Velocity.z);
+            TargetVelocity = new Vector3(XMovement, Velocity.y, ZMovement);
+           
         }
 
         public void OnCrouch(InputAction.CallbackContext CallbackContext)
@@ -122,7 +125,7 @@ namespace RangerProject.Scripts.Player
         {
             if (IsGrounded)
             {
-                if (VelocityWithoutY.Equals(Vector3.zero))
+                if (VelocityWithoutY.magnitude < MinVelocity)
                 {
                     IsIdle = true;
                     IsWalking = false;
@@ -165,16 +168,16 @@ namespace RangerProject.Scripts.Player
 
         void SetBlendValuesLowerBody()
         {
-            if (Velocity.Equals(Vector3.zero) || !IsGrounded)
+            if (Velocity.magnitude < MinVelocity || !IsGrounded)
             {
                 PlayerAnimator.SetFloat(BlendXId, 0.0f);
                 PlayerAnimator.SetFloat(BlendYId, 0.0f);
-                
+              
                 return;
             }
 
-            Vector3 VelocityRelativeToPlayer = transform.InverseTransformDirection(VelocityWithoutY);
-            
+            Vector3 VelocityRelativeToPlayer = transform.InverseTransformDirection(Velocity);
+           
             PlayerAnimator.SetFloat(BlendXId, VelocityRelativeToPlayer.x);
             PlayerAnimator.SetFloat(BlendYId, VelocityRelativeToPlayer.z);
         }
@@ -193,6 +196,9 @@ namespace RangerProject.Scripts.Player
         
         private void ApplyMovement()
         {
+            Velocity = Vector3.Lerp(Velocity, TargetVelocity, Time.deltaTime * Acceleration);
+            VelocityWithoutY = new Vector3(Velocity.x, 0, Velocity.z);
+            
             float XMovement = Velocity.x * (IsCrouching ? MovementSpeedCrouching : MovementSpeed);
             float ZMovement = Velocity.z * (IsCrouching ? MovementSpeedCrouching : MovementSpeed);
             
