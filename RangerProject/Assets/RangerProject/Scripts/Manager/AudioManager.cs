@@ -6,12 +6,13 @@ namespace RangerProject.Scripts.Manager
 {
     public class AudioManager : BaseSingleton<AudioManager>
     {
+        [SerializeField] private AudioSource AudioObjectPrefab;
         private ObjectPool<AudioSource> AudioPool;
 
         protected override void Awake()
         {
             base.Awake();
-            AudioPool = new ObjectPool<AudioSource>("AudioObject");
+            AudioPool = new ObjectPool<AudioSource>("AudioObject", AudioObjectPrefab);
         }
 
         public void PlayAudioFileWithRandomParams(ParamterizedAudiofile AudioFileToPlay, Vector3 Position)

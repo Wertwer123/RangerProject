@@ -245,13 +245,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7024236966557924638}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.27059805, y: -0.6532815, z: -0.6532815, w: 0.27059805}
-  m_LocalPosition: {x: 0, y: 0.0499, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3023376802803403592}
-  m_LocalEulerAnglesHint: {x: -90, y: -135, z: 0}
+  m_Father: {fileID: 1284038492798199606}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7175391140997436182
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,6 +410,7 @@ Transform:
   m_Children:
   - {fileID: 8410036310301943491}
   - {fileID: 8377799791234464096}
+  - {fileID: 3056638291993126557}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4564111826352979803
@@ -472,7 +473,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponAttachmentOffset: 0.05
   PlayerInventory: {fileID: 3250508094992991256}
-  WeaponAttachmentParent: {fileID: 3056638291993126557}
+  WeaponAttachmentSpot: {fileID: 3023376802803403592}
+  WeaponAttachmentSpotParent: {fileID: 0}
   CurrentWeapon: {fileID: 0}
   WeaponDataBase: {fileID: 11400000, guid: 163edddfdbda31648a7249cd68f307e5, type: 2}
   CameraController: {fileID: 0}
@@ -593,6 +595,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 47502be0-5d90-4f14-9123-4216777ea00c
     m_ActionName: Player/Reload[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a445d4c3-e0f7-4390-abe9-e2d0d3c31890
+    m_ActionName: Player/MouseWheelUp[/Mouse/scroll/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fa905c0a-edd6-4686-97b2-4d2f88bb5def
+    m_ActionName: Player/MouseWheelDown[/Mouse/scroll/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -774,10 +784,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 204746868699221025}
-    - targetCorrespondingSourceObject: {fileID: 6502182839619065283, guid: b6b594902ccc03d4bbf54cdddf709699,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3056638291993126557}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b6b594902ccc03d4bbf54cdddf709699,
         type: 3}

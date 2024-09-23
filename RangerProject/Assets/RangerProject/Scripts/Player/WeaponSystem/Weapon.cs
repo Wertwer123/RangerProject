@@ -73,6 +73,10 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             }
         }
 
+        protected void SpawnDmgPopUp(Vector3 LocationToSpawnPopUpAt, int DealtDmg, Color DmgColor)
+        {
+            DynamicUIManager.Instance.SpawnDmgPopUp(DealtDmg.ToString(), DmgColor, LocationToSpawnPopUpAt);
+        }
         protected void PlayMuzzleFlash(Vector3 EndPosition)
         {
             MuzzleFlashVFX.Play();

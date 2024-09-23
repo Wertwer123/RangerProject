@@ -9,8 +9,10 @@ namespace RangerProject.Scripts.Player.WeaponSystem
     public class WeaponComponent : MonoBehaviour
     {
         [SerializeField] private float WeaponAttachmentOffset = 0.05f;
+        [SerializeField] private Vector3 WeaponAttachmentSpotRotationOffset;
         [SerializeField] private Inventory PlayerInventory;
-        [SerializeField] private Transform WeaponAttachmentParent;
+        [SerializeField] private Transform WeaponAttachmentSpot;
+        [SerializeField] private Transform WeaponAttachmentSpotParent;
         [SerializeField] private Weapon CurrentWeapon;
         [SerializeField] private WeaponDataBase WeaponDataBase;
         [SerializeField] protected CameraController CameraController;
@@ -31,6 +33,8 @@ namespace RangerProject.Scripts.Player.WeaponSystem
 
         private void Update()
         {
+            SetPositionOfWeaponAttachmentSpot();
+            
             if (!HasWeaponEquiped())
             {
                 return;
@@ -49,7 +53,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             } 
             
         }
-
+        
         public void SetCurrentWeapon(WeaponData NewWeapon)
         {
             ChangeWeapon(WeaponDataBase.GetWeaponById(NewWeapon.GetWeaponId()));
@@ -112,6 +116,12 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                 PlayerAnimator.SetBool(IsFiringId, IsFiring);
             }
         }
+
+        private void SetPositionOfWeaponAttachmentSpot()
+        {
+            WeaponAttachmentSpot.position = WeaponAttachmentSpotParent.position;
+            WeaponAttachmentSpot.eulerAngles = WeaponAttachmentSpotParent.eulerAngles + WeaponAttachmentSpotRotationOffset;
+        }
         private void SetAmmoForInventoryWeapon(int NewAmmoAmount)
         {
             PlayerInventory.SetAmmoForWeapon(CurrentWeapon.GetWeaponData().GetWeaponId(), NewAmmoAmount);
@@ -131,7 +141,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                 Destroy(CurrentWeapon.gameObject);
             }
             
-            var NewWeaponInstance = Instantiate(NewWeapon, WeaponAttachmentParent);
+            var NewWeaponInstance = Instantiate(NewWeapon, WeaponAttachmentSpot);
             NewWeaponInstance.transform.localPosition += new Vector3(WeaponAttachmentOffset, 0, 0);
             CurrentWeapon = NewWeaponInstance;
             

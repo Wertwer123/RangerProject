@@ -4,6 +4,6 @@ namespace RangerProject.Scripts.Interfaces
     public interface IDamageable
     {
         //Should return if the hit was the final hit
-        public bool DealDmg(int Dmg);
+        public bool DealDmg(int Dmg, out int RecievedDmg);
     }
 }

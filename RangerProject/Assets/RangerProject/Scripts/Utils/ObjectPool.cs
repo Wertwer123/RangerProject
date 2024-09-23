@@ -7,12 +7,12 @@ namespace RangerProject.Scripts.Utils
     {
         //the initial amount of objects allocated
         private const int StartSize = 10;
-
+        private T PrefabToUse;
         private List<T> AllPooledObjects = new List<T>();
 
-        public ObjectPool(string ObjectPoolObjectName)
+        public ObjectPool(string ObjectPoolObjectName, T PrefabToUse)
         {
-            InitPool(ObjectPoolObjectName);
+            InitPool(ObjectPoolObjectName, PrefabToUse);
         }
 
         public T GetObjectFromPool()
@@ -28,7 +28,7 @@ namespace RangerProject.Scripts.Utils
                 }
             }
 
-            var NewPoolObject = new GameObject().AddComponent<T>();
+            var NewPoolObject = Object.Instantiate(PrefabToUse);
         
             AllPooledObjects.Add(NewPoolObject);
             return NewPoolObject;
@@ -46,11 +46,13 @@ namespace RangerProject.Scripts.Utils
             ObjectToReturn.gameObject.SetActive(false);
         }
         
-        void InitPool(string ObjectPoolObjectName)
+        void InitPool(string ObjectPoolObjectName, T PoolObject)
         {
+            PrefabToUse = PoolObject;
+            
             for (int i = 0; i < StartSize; i++)
             {
-                var NewPoolObject = new GameObject(ObjectPoolObjectName).AddComponent<T>();
+                var NewPoolObject = Object.Instantiate(PoolObject);
                 NewPoolObject.gameObject.SetActive(false);
                 AllPooledObjects.Add(NewPoolObject);
             }

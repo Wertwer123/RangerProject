@@ -11,7 +11,7 @@ public class Health : MonoBehaviour, IDamageable
         CurrentHealthPoints = MaxHealthPoints;
     }
 
-    public bool DealDmg(int Dmg)
+    public bool DealDmg(int Dmg, out int RecievedDmg)
     {
         CurrentHealthPoints -= Dmg;
         CurrentHealthPoints = Mathf.Clamp(CurrentHealthPoints, 0, MaxHealthPoints);
@@ -20,9 +20,11 @@ public class Health : MonoBehaviour, IDamageable
         if (MaxHealthPoints == 0)
         {
             Destroy(gameObject);
+            RecievedDmg = Dmg;
             return true;
         }
-        
+
+        RecievedDmg = Dmg;
         return false;
     }
 }

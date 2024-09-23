@@ -21,7 +21,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         [SerializeField] private ParamterizedAudiofile ShotSound;
         [SerializeField] Vector2 WeaponSpray = Vector2.zero;
         [SerializeField] private LayerMask HitableLayer;
-        [SerializeField, HideInInspector] private int WeaponId = -1;
+        [SerializeField] private int WeaponId = -1;
         [SerializeField] private EWeaponType WeaponType;
         [SerializeField] private CameraSettings WeaponSettings;
         

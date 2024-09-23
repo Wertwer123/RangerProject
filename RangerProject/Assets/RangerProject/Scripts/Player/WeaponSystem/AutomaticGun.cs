@@ -22,7 +22,6 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             InvokeOnWeaponFired();
             PlayWeaponShotSound();
             
-            
             var WeaponTransform = transform;
             Vector3 WeaponSpray = new Vector3(Random.Range(-WeaponData.GetWeaponSpray().x, WeaponData.GetWeaponSpray().x), Random.Range(-WeaponData.GetWeaponSpray().y, WeaponData.GetWeaponSpray().y), 0);
             Vector3 StartPoint = WeaponTransform.position;
@@ -38,7 +37,8 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                 PlayMuzzleFlash(Hit.point);
                 if (Hit.collider.gameObject.TryGetComponent(out IDamageable Damageable))
                 {
-                    Damageable.DealDmg(WeaponData.GetWeaponDmg());
+                    Damageable.DealDmg(WeaponData.GetWeaponDmg(), out int RecievedDmg);
+                    SpawnDmgPopUp(Hit.point + Vector3.up *2.2f, RecievedDmg, Color.red);
                     Debug.DrawRay(StartPoint, Direction * Hit.distance, Color.yellow, 5.0f);
                 }
                 else
