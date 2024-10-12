@@ -394,6 +394,7 @@
 "Assets/RangerProject/Scripts/Player/WeaponSystem/WeaponDataBase.cs"
 "Assets/RangerProject/Scripts/Player/WeaponSystem/WeaponPickup.cs"
 "Assets/RangerProject/Scripts/UI/DmgPopUp.cs"
+"Assets/RangerProject/Scripts/UI/PlayerHud.cs"
 "Assets/RangerProject/Scripts/UI/Tweens/ScaleTween.cs"
 "Assets/RangerProject/Scripts/UI/Tweens/TextAlphaTween.cs"
 "Assets/RangerProject/Scripts/UI/Tweens/Tween.cs"

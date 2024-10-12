@@ -33,6 +33,11 @@ namespace RangerProject.Scripts.Player
 
         public void ChangeWeaponUpOrDown(int Increment)
         {
+            if (AllCollectedWeapons.Count == 0)
+            {
+                return;
+            }
+            
             //If for some reason we pass in something bigger or smaller then 1
             Increment = Mathf.Clamp(Increment, -1, 1);
 
@@ -71,6 +76,7 @@ namespace RangerProject.Scripts.Player
         {
             EAmmoType TypeOfAmmoWeaponUses = WeaponData.GetWeaponAmmoType();
             int AmountOfAmmoToFillIntoWeapon = AmmoAmountPerAmmoType.TryGetValue(TypeOfAmmoWeaponUses, out var value) ? value : 0;
+            AmountOfAmmoToFillIntoWeapon = Mathf.Clamp(AmountOfAmmoToFillIntoWeapon, 0, WeaponData.GetMaxAmmo());
             
             SaveableWeapon NewWeapon = new SaveableWeapon(WeaponData.GetWeaponId(), AmountOfAmmoToFillIntoWeapon);
             

@@ -25,5 +25,6 @@ MonoBehaviour:
   HitableLayer:
     serializedVersion: 2
     m_Bits: 8
+  WeaponId: 217195902
   WeaponType: 0
   WeaponSettings: {fileID: 11400000, guid: f84ccf42caaa84b46b7b70e81c168692, type: 2}

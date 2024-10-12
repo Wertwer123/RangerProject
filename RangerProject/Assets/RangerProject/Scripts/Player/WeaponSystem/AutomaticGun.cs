@@ -38,7 +38,7 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                 if (Hit.collider.gameObject.TryGetComponent(out IDamageable Damageable))
                 {
                     Damageable.DealDmg(WeaponData.GetWeaponDmg(), out int RecievedDmg);
-                    SpawnDmgPopUp(Hit.point + Vector3.up *2.2f, RecievedDmg, Color.red);
+                    SpawnDmgPopUp(Hit.collider.bounds.center + new Vector3(0, Hit.collider.bounds.extents.y, 0), RecievedDmg, Color.white);
                     Debug.DrawRay(StartPoint, Direction * Hit.distance, Color.yellow, 5.0f);
                 }
                 else

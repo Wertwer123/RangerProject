@@ -18,11 +18,14 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         [SerializeField] protected CameraController CameraController;
         [SerializeField] private TwoBoneIKConstraint RightHandAimConstraint;
         [SerializeField] private RigBuilder RigBuilder;
+        public event Action<Weapon, Weapon> OnWeaponChanged; 
+        public event Action<int> OnCurrentWeaponReloaded; 
         
         private bool IsFiring;
         private int IsFiringId = Animator.StringToHash("IsFiring");
         private float NextShotTime = 0.0f;
         private Animator PlayerAnimator;
+       
         
         public bool HasWeaponEquiped() => CurrentWeapon != null;
         
@@ -61,12 +64,22 @@ namespace RangerProject.Scripts.Player.WeaponSystem
 
         public void OnMouseWheelUp(InputAction.CallbackContext CallbackContext)
         {
+            if (!CallbackContext.started)
+            {
+                return;
+            }
+            
             PlayerInventory.ChangeWeaponUpOrDown(1);
             ChangeWeapon(WeaponDataBase.GetWeaponById(PlayerInventory.GetCurrentlyEquippedWeaponID()));
         }
 
         public void OnMouseWheelDown(InputAction.CallbackContext CallbackContext)
         {
+            if (!CallbackContext.started)
+            {
+                return;
+            }
+            
             PlayerInventory.ChangeWeaponUpOrDown(-1);
             ChangeWeapon(WeaponDataBase.GetWeaponById(PlayerInventory.GetCurrentlyEquippedWeaponID()));
         }
@@ -88,6 +101,8 @@ namespace RangerProject.Scripts.Player.WeaponSystem
                     //to our current ammo
                     CurrentWeapon.SetCurrentAmmo(CurrentWeapon.GetCurrentWeaponAmmo() + RemovedAmmoAmount);
                     SetAmmoForInventoryWeapon(CurrentWeapon.GetCurrentWeaponAmmo());
+                    
+                    OnCurrentWeaponReloaded?.Invoke(CurrentWeapon.GetCurrentWeaponAmmo());
                 }
             }
         }
@@ -128,6 +143,8 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         }
         private void ChangeWeapon(Weapon NewWeapon)
         {
+            Weapon OldWeapon = CurrentWeapon;
+            
             if (CurrentWeapon)
             {
                 //If we change to the same weapon do nothing
@@ -143,17 +160,20 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             
             var NewWeaponInstance = Instantiate(NewWeapon, WeaponAttachmentSpot);
             NewWeaponInstance.transform.localPosition += new Vector3(WeaponAttachmentOffset, 0, 0);
+            
+            Debug.Log(OldWeapon);
             CurrentWeapon = NewWeaponInstance;
             
             //Initialize the weapon
-            int AmmoOfCurrentWeapon = PlayerInventory.GetAmmoForWeapon(CurrentWeapon.GetWeaponData().GetWeaponId());
             CurrentWeapon.OnWeaponFired += SetAmmoForInventoryWeapon;
-            
-            CurrentWeapon.InitWeapon(AmmoOfCurrentWeapon);
+            CurrentWeapon.InitWeapon(PlayerInventory);
             CameraController.SetCurrentCameraSettings(NewWeaponInstance.GetWeaponData().GetWeaponShakeSettings());
             
-            SetAmmoForInventoryWeapon(CurrentWeapon.GetCurrentWeaponAmmo());
-            AttachRightHandToWeaponSocket(CurrentWeapon);
+            //Call the change event to notify other systems that a weapon has been changed
+            OnWeaponChanged?.Invoke(OldWeapon, CurrentWeapon);
+            
+            //Faulty because the arm gets stretched and fucks up the whole rig
+            // AttachRightHandToWeaponSocket(CurrentWeapon);
         }
 
         private void AttachRightHandToWeaponSocket(Weapon NewWeapon)

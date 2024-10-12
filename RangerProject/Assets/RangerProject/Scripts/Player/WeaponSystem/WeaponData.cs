@@ -43,6 +43,10 @@ namespace RangerProject.Scripts.Player.WeaponSystem
             {
                 Debug.Log("Assigned a id");
                 WeaponId = Id;
+                
+                #if UNITY_EDITOR
+                EditorUtility.SetDirty(this);
+                #endif
             }
             else
             {

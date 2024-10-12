@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace RangerProject.Scripts.Gameplay
 {
-    public class CameraController : MonoBehaviour
+    public class CameraController : BaseSingleton<CameraController>
     {
         [SerializeField] private Transform TargetTransform;
         [SerializeField] private CameraSettings CurrentSettings;

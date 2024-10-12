@@ -21,6 +21,5 @@ public class TextAlphaTween : Tween
             TargetText.alpha = Mathf.Lerp(From, To, PassedTime / PlayTime);
             yield return null;
         }
-        Debug.Log("Finishedplaying tween");
     }
 }

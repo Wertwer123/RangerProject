@@ -14,14 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dmg: 10
   ShotsPerSecond: 12
+  AmmoUsedPerShot: 1
   MaxAmmo: 400
   WeaponRange: 20
   MuzzleFlashIntensity: 50
-  WeaponName: DefaultWeaponName
+  WeaponName: M14
+  WeaponAmmoTypeToUse: 0
   ShotSound: {fileID: 11400000, guid: 62d7bd382dca0f94ba45f8167ff5fbf6, type: 2}
   WeaponSpray: {x: 0.06, y: 0.06}
   HitableLayer:
     serializedVersion: 2
     m_Bits: 8
+  WeaponId: 128191224
   WeaponType: 0
   WeaponSettings: {fileID: 11400000, guid: 487e0e8ebd6dbae4b85e144a778064c1, type: 2}

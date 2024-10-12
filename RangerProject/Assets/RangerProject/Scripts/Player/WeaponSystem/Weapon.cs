@@ -39,16 +39,9 @@ namespace RangerProject.Scripts.Player.WeaponSystem
         /// <param name="PlayerInventory"></param>
         public void InitWeapon(Inventory PlayerInventory)
         {
-            if (PlayerInventory.TryRemoveAmmo(WeaponData.WeaponAmmoTypeToUse, WeaponData.GetMaxAmmo(),
-                    out int RemovedAmmoAmount))
-            { 
-                CurrentAmmo = RemovedAmmoAmount;
-            }
-            else
-            {
-                CurrentAmmo = 0;
-            }
-            
+            //Get the current ammo for our weapon saved in the inventory
+            CurrentAmmo = PlayerInventory.GetAmmoForWeapon(this.WeaponData.GetWeaponId());
+           
             PlayerController = GetComponentInParent<PlayerController>();
             BulletTrace.positionCount = 0;
         }
